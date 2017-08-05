@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 77c1ae9368d824e03bdb0cb04d04ab20
+timeCreated: 1500310005
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Edge Racer 3D Italic
+  fontNames:
+  - Edge Racer 3D Italic
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

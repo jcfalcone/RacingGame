@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 938d0187c5f864c5c9a489fe6f54cfc3
+timeCreated: 1500310005
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Edge Racer Gradient
+  fontNames:
+  - Edge Racer Gradient
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

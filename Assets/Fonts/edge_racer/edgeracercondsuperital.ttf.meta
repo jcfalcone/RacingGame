@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: acd3fc7010a7b44f68b2b17403aca13d
+timeCreated: 1500310005
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Edge Racer Condensed Super-Italic
+  fontNames:
+  - Edge Racer Condensed Super-Italic
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 80a7d4bd1def04fda9d657bb2a64f5bb
+timeCreated: 1500310005
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Edge Racer Bevel
+  fontNames:
+  - Edge Racer Bevel
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

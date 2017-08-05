@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: ffd7b2ccf575c473cbff3e6ec77f9b79
+timeCreated: 1500310005
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Edge Racer Laser Italic 2
+  fontNames:
+  - Edge Racer Laser Italic 2
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

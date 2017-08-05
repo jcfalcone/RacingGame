@@ -1,0 +1,19 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Editor/ScreenShoot.cs">
+    <Files>
+      <File FileName="Assets/UIManagerMenu.cs" Line="47" Column="30" />
+      <File FileName="Assets/Script/Manager/DataManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Sound/AudioTest.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Editor/ScreenShoot.cs" Line="37" Column="37" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/juliocesarsoaresfalconecunha/Documents/College/Term4/Mobile/Project1/Assets/Script/Manager/ControlMaster.cs" line="82" column="1" />
+      <Breakpoint file="/Users/juliocesarsoaresfalconecunha/Documents/College/Term4/Mobile/Project1/Assets/Script/Car/AI/CarAI.cs" line="312" column="1" />
+      <Breakpoint file="/Users/juliocesarsoaresfalconecunha/Documents/College/Term4/Mobile/Project1/Assets/Script/Car/AI/CarAI.cs" line="307" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

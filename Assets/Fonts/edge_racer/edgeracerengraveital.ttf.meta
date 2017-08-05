@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 0efb6d83bbf9647c19961c81a2f32970
+timeCreated: 1500310004
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Edge Racer Engraved Italic
+  fontNames:
+  - Edge Racer Engraved Italic
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
