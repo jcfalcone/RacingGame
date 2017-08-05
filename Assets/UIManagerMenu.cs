@@ -10,6 +10,9 @@ public class UIManagerMenu : MonoBehaviour
     [SerializeField]
     Animator mainMenuAnimator;
 
+    [SerializeField]
+    GameObject touchCanvas;
+
     bool startGame = false;
 
     AsyncOperation async;
@@ -27,6 +30,7 @@ public class UIManagerMenu : MonoBehaviour
         {
             if (Input.touchCount > 0 || Input.GetButtonUp("Fire1"))
             {
+                this.touchCanvas.SetActive(false);
                 this.camAnim.enabled = true;
                 this.camAnim.CrossFade("CameraStart", 0f);
                 this.startGame = true;
