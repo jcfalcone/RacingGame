@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{75AC4C40-F16B-156B-5A80-9157E3301C82}</ProjectGuid>
+    <ProjectGuid>{AA9839ED-BA0F-ED92-C51D-C007E90B711B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -103,6 +103,7 @@
      <Compile Include="Assets\3rd Party\Toon Character Pack\Scripts\GameObjectSpawner_Characters.cs" />
      <Compile Include="Assets\3rd Party\Toon Character Pack\Scripts\SmoothCameraOrbit.cs" />
      <Compile Include="Assets\3rd Party\Toon Character Pack\Scripts\ToonCharacterController.cs" />
+     <Compile Include="Assets\DevManager.cs" />
      <Compile Include="Assets\Script\Car\AI\CarAI.cs" />
      <Compile Include="Assets\Script\Car\CarCamera.cs" />
      <Compile Include="Assets\Script\Car\CarControl.cs" />
@@ -156,7 +157,7 @@
      <None Include="Assets\3rd Party\PowerUps Vol 1 Free\Readme.txt" />
      <None Include="Assets\3rd Party\Toon Character Pack\Shaders\Toony-TransparentAdd-Outline.shader" />
  <Reference Include="Facebook.Unity.Settings">
- <HintPath>/Users/juliocesarsoaresfalconecunha/Documents/College/Term4/Mobile/Project1/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
+ <HintPath>/Users/juliocesarsoaresfalconecunha/Documents/College/Term4/Mobile/Project1 - Racing Game/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

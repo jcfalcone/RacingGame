@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{2E67655C-E42A-1E94-E88E-0905939731D1}</ProjectGuid>
+    <ProjectGuid>{DBC7FF26-0D09-70D2-A112-75B6BD34175A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -54,6 +54,7 @@
      <Compile Include="Assets\3rd Party\JMO Assets\Cartoon FX Easy Editor\Editor\CFXEasyEditor.cs" />
      <Compile Include="Assets\3rd Party\JMO Assets\Cartoon FX\Editor\CFX_InspectorHelpEditor.cs" />
      <Compile Include="Assets\3rd Party\JMO Assets\Cartoon FX\Editor\CFX_SpawnSystemEditor.cs" />
+     <Compile Include="Assets\Script\Editor\BuildScript.cs" />
      <Compile Include="Assets\Scripts\Editor\ScreenShoot.cs" />
      <None Include="Assets\3rd Party\Toon Character Pack\Shaders\Toony-Transparent.shader" />
      <None Include="Assets\3rd Party\Toon Character Pack\Shaders\Toony-Basic.shader" />
@@ -87,7 +88,7 @@
      <None Include="Assets\3rd Party\PowerUps Vol 1 Free\Readme.txt" />
      <None Include="Assets\3rd Party\Toon Character Pack\Shaders\Toony-TransparentAdd-Outline.shader" />
  <Reference Include="Facebook.Unity.Settings">
- <HintPath>/Users/juliocesarsoaresfalconecunha/Documents/College/Term4/Mobile/Project1/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
+ <HintPath>/Users/juliocesarsoaresfalconecunha/Documents/College/Term4/Mobile/Project1 - Racing Game/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
@@ -171,7 +172,7 @@
  <HintPath>/Applications/Unity/PlaybackEngines/Facebook/UnityEditor.Facebook.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="JMOAssets">
- <HintPath>/Users/juliocesarsoaresfalconecunha/Documents/College/Term4/Mobile/Project1/Assets/3rd Party/JMO Assets/Editor/JMOAssets.dll</HintPath>
+ <HintPath>/Users/juliocesarsoaresfalconecunha/Documents/College/Term4/Mobile/Project1 - Racing Game/Assets/3rd Party/JMO Assets/Editor/JMOAssets.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>/Applications/Unity/PlaybackEngines/AppleTVSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -182,9 +183,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{75AC4C40-F16B-156B-5A80-9157E3301C82}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+      <Project>{AA9839ED-BA0F-ED92-C51D-C007E90B711B}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-UnityScript.csproj">
-      <Project>{C6395382-723E-07E7-90A5-EF64C2AB9ACB}</Project>      <Name>Assembly-UnityScript</Name>    </ProjectReference>
+      <Project>{5AA935E7-7AD5-DA75-26B0-25CDEA7D503F}</Project>      <Name>Assembly-UnityScript</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

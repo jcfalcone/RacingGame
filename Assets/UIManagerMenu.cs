@@ -12,6 +12,8 @@ public class UIManagerMenu : MonoBehaviour
 
     bool startGame = false;
 
+    AsyncOperation async;
+
 	// Use this for initialization
 	void Start () 
     {
@@ -46,5 +48,30 @@ public class UIManagerMenu : MonoBehaviour
     {
         this.mainMenuAnimator.enabled = true;
         this.mainMenuAnimator.CrossFade("MainMenuInitial", 0f);
+    }
+
+    public void OnClickMap(string mapToLoad)
+    {
+        StartCoroutine(startLoadLevel(mapToLoad));
+        StartCoroutine(startLevel(1)); // Just for testing
+    }
+
+    IEnumerator startLoadLevel(string mapToLoad)
+    {
+        async = Application.LoadLevelAsync(mapToLoad);
+        async.allowSceneActivation = false;
+
+        yield return async;
+    }
+
+    public void nextLevel()
+    {
+        async.allowSceneActivation = true;
+    }
+
+    IEnumerator startLevel(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        nextLevel();
     }
 }
