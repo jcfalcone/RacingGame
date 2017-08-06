@@ -49,15 +49,12 @@ public class CarControl : CarTemplate
 
     void Update()
     {
-
         carSound();
 
         if (inputItem())
         {
             useItem();
         }
-
-//        Debug.Log(transform.name+" - "+this.totalScore);
     }
 	
 	// Update is called once per frame

@@ -78,4 +78,11 @@ public class UIManagerMenu : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         nextLevel();
     }
+
+    public void OnClickMapReturn()
+    {
+        this.mainMenuAnimator.enabled = true;
+        this.mainMenuAnimator.CrossFade("MainMenuMapToInitial", 0f);
+    }
+
 }

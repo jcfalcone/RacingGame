@@ -48,8 +48,8 @@ public class CarCamera : MonoBehaviour {
     {
         float wantedHeight = car.position.y + height;
 
-        float myAngle = Mathf.LerpAngle(transform.eulerAngles.y, rotationVector.y, Time.deltaTime * rotationVelocity);
-        float myHeight = Mathf.Lerp(transform.position.y, wantedHeight, Time.deltaTime * heightVelocity);
+        float myAngle = Mathf.LerpAngle(transform.eulerAngles.y, rotationVector.y, Time.unscaledDeltaTime * rotationVelocity);
+        float myHeight = Mathf.Lerp(transform.position.y, wantedHeight, Time.unscaledDeltaTime * heightVelocity);
 
         Vector3 newPosition = car.position;
         newPosition  -= Quaternion.Euler(0, myAngle, 0) * Vector3.forward * this.curDistance;
@@ -60,12 +60,12 @@ public class CarCamera : MonoBehaviour {
 
         if (this.curDistance != this.distance)
         {
-            this.curDistance = Mathf.Lerp(this.curDistance, this.distance, Time.deltaTime * 1.5f);
+            this.curDistance = Mathf.Lerp(this.curDistance, this.distance, Time.unscaledDeltaTime * 1.5f);
         }
 
         if (this.curZoomRatio != this.zoomRatio)
         {
-            this.curZoomRatio = Mathf.Lerp(this.curZoomRatio, this.zoomRatio, Time.deltaTime * 1.5f);
+            this.curZoomRatio = Mathf.Lerp(this.curZoomRatio, this.zoomRatio, Time.unscaledDeltaTime * 1.5f);
         }
     }
 	
