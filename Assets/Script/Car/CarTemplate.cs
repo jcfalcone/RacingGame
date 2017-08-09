@@ -18,6 +18,17 @@ public class CarTemplate : MonoBehaviour , IEquatable<CarTemplate> , IComparable
     protected GameObject currentItem;
     protected itemTemplate currentItemControl;
 
+    [Header("UI")]
+    [SerializeField]
+    string PlayerName;
+
+    [SerializeField]
+    RacerData data;
+
+    [Header("Camera")]
+    [SerializeField]
+    GameObject finalCamera;
+
     [Header("Speed")]
     [SerializeField]
     public float maxSpeed;
@@ -29,13 +40,13 @@ public class CarTemplate : MonoBehaviour , IEquatable<CarTemplate> , IComparable
     float maxReverseSpeed;
 
     [SerializeField]
-    protected float lowestSteerAtSpeed;
+    public float lowestSteerAtSpeed;
 
     [SerializeField]
-    protected float decelerationSpeed = 30;
+    public float decelerationSpeed = 30;
 
     [SerializeField]
-    protected float maxGrassSpeed;
+    public float maxGrassSpeed;
 
     [Header("Wheels")]
     [SerializeField]
@@ -45,7 +56,7 @@ public class CarTemplate : MonoBehaviour , IEquatable<CarTemplate> , IComparable
     protected Transform[] rearWheelTransList;
 
     [SerializeField]
-    protected WheelCollider[] frontWheelList;
+    public WheelCollider[] frontWheelList;
 
     [SerializeField]
     protected Transform[] frontWheelTransList;
@@ -58,12 +69,11 @@ public class CarTemplate : MonoBehaviour , IEquatable<CarTemplate> , IComparable
         }
     }
 
-
     protected bool braked;
     public bool resetMotorTorque = true;
     public float maxCurrentSpeed;
     protected float currentSpeed;
-    protected Rigidbody rb;
+    public Rigidbody rb;
 
     public int carPosition;
     public int   currWaypointIndex = 0;
@@ -71,6 +81,11 @@ public class CarTemplate : MonoBehaviour , IEquatable<CarTemplate> , IComparable
     protected int currLap = 0;
 
     protected List<int> checkpointList = new List<int>();
+
+    float bestTime = 0;
+    float startRaceTime = 0;
+
+    protected bool finalCompleted = false;
 
 	// Use this for initialization
     protected virtual void Start () 
@@ -89,6 +104,17 @@ public class CarTemplate : MonoBehaviour , IEquatable<CarTemplate> , IComparable
 
         CarPositionMaster.instance.addPlayer(this);
 
+        /*if (this.localPlayer || 1 == 1)
+        {
+            this.currLap = 4;
+            completeTrack();
+        }*/
+
+    }
+
+    public void StartRace()
+    {
+        this.startRaceTime = Time.time;
     }
 
     public override bool Equals(object obj)
@@ -117,7 +143,7 @@ public class CarTemplate : MonoBehaviour , IEquatable<CarTemplate> , IComparable
         return (this.totalScore.Equals(other.totalScore));
     }
 
-    protected void updateRearWheel()
+    public void updateRearWheel()
     {
         int count = 0;
 
@@ -149,7 +175,7 @@ public class CarTemplate : MonoBehaviour , IEquatable<CarTemplate> , IComparable
         }
     }
 
-    protected void updateFrontWheel()
+    public void updateFrontWheel()
     {
         int count = 0;
 
@@ -177,7 +203,7 @@ public class CarTemplate : MonoBehaviour , IEquatable<CarTemplate> , IComparable
         }
     }
 
-    protected void moveCar(float Torque)
+    public void moveCar(float Torque)
     {
 
         foreach (WheelCollider wheel in rearWheelList)
@@ -204,6 +230,11 @@ public class CarTemplate : MonoBehaviour , IEquatable<CarTemplate> , IComparable
     public void addLap()
     {
         this.currLap++;
+
+        if (this.localPlayer)
+        {
+            UIManager.instance.UpdateLapNumber(this.currLap + 1, ControlMaster.instance.totalLaps);
+        }
     }
 
     public void setCarWaypoint(int currWaypoint, float nextWaypointDistance)
@@ -230,12 +261,31 @@ public class CarTemplate : MonoBehaviour , IEquatable<CarTemplate> , IComparable
         return this.checkpointList.Count >= 4;
     }
 
-    public void completeTrack()
+    virtual public void completeTrack()
     {
         if (this.isTrackCompleted())
         {
             ControlMaster.instance.completeTrack(this.currLap);
             this.addLap();
+        }
+
+        if (this.currLap >= ControlMaster.instance.totalLaps && !finalCompleted)
+        {
+            this.bestTime = Time.time - this.startRaceTime;
+            UIManager.instance.addRacerFinal(this.PlayerName, this.data.racerPicture, 10 - this.carPosition * 5, this.localPlayer);
+
+            if (this.localPlayer)
+            {
+                UIManager.instance.showFinal();
+
+                if (this.finalCamera)
+                {
+                    Camera.main.gameObject.SetActive(false);
+                    this.finalCamera.SetActive(true);
+                }
+            }
+
+            finalCompleted = true;
         }
 
         this.checkpointList.Clear();
@@ -256,16 +306,15 @@ public class CarTemplate : MonoBehaviour , IEquatable<CarTemplate> , IComparable
         }
     }
 
-    public void useItem()
+    virtual public void useItem()
     {
-        Debug.Log("Item Used");
         if (this.currentItem != null)
         {
             Vector3 spawnPos = this.spawnPoint.position;
 
             if(this.currentItemControl.effect == itemTemplate.ItemEffect.OilStan)
             {
-                Vector3 normalPos = this.spawnPoint.position.normalized;
+                Vector3 normalPos = -transform.forward;
                 normalPos.y = 0;
                 spawnPos += normalPos * 5f;
             }

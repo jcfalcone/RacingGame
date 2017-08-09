@@ -17,6 +17,10 @@ public class ControlMaster : MonoBehaviour
     //Creates a class variable to keep track of GameManger
     static ControlMaster _instance = null;
 
+    [Header("Game Setting")]
+    [SerializeField]
+    public int totalLaps = 3;
+
     [Header("AI Waypoints")]
     [SerializeField]
     public Transform[] waypointList;
@@ -61,16 +65,6 @@ public class ControlMaster : MonoBehaviour
             instance = this;
         }
 	}
-	
-	// Update is called once per frame
-	void LateUpdate () 
-    {
-        /*float currTime = (Time.time - startLapTime);
-        TimeSpan ts = TimeSpan.FromSeconds(currTime);
-        timeLabel.text = ts.Minutes.ToString("00") + ":" + ts.Seconds.ToString("00") + ":" + Mathf.Round(ts.Milliseconds / 10);
-*/
-
-	}
 
     public void completeTrack(int Lap)
     {
@@ -81,19 +75,12 @@ public class ControlMaster : MonoBehaviour
 
         float currTime = (Time.time - startLapTime);
 
-        //Debug.Log("isTrackCompleted - "+(checkpointList.Count >= 4));
-
         if (currTime < bestTime || bestTime == 0)
         {
             bestTime = currTime;
             TimeSpan ts = TimeSpan.FromSeconds(bestTime);
             bestTimeLabel.text = ts.Minutes.ToString("00") + ":" + ts.Seconds.ToString("00") + ":" + Mathf.Round(ts.Milliseconds / 10);
         }
-
-        /*for(int count = 0; count < CarPositionMaster.instance.carList.Count; count++)
-        {
-            CarPositionMaster.instance.carList[count].resetCheckpoint();
-        }*/
 
         for(int count = 0; count < this.checkpointList.Length; count++)
         {
@@ -106,6 +93,18 @@ public class ControlMaster : MonoBehaviour
         //checkpointList.Clear();
     }
 
+    public void startRace()
+    {
+        List<CarTemplate> carList = CarPositionMaster.instance.carList;
+
+        foreach(CarTemplate car in carList)
+        {
+            car.StartRace();
+        }
+
+        this.UnPauseGame();
+    }
+
     public void PauseGame()
     {
         Time.timeScale = 0f;
@@ -115,4 +114,6 @@ public class ControlMaster : MonoBehaviour
     {
         Time.timeScale = 1f;
     }
+
+
 }

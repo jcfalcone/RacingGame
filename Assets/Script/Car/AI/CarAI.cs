@@ -179,35 +179,6 @@ public class CarAI : CarTemplate
         }
 
         this.checkItem();
-
-        /*if (Vector3.Distance(transform.position, this.carLastPos) < 0.009f)
-        {
-            if (this.savePathList != null)
-            {
-                currWaypoint--;
-
-                if (currWaypoint < 0)
-                {
-                    currWaypoint = 0;
-                }
-
-                this.currPathPoint = 1;
-
-                transform.position = this.waypointPathList[currWaypoint].corners[0];
-                transform.LookAt(this.waypointPathList[currWaypoint].corners[this.currPathPoint]);
-            }
-            else
-            {
-                this.savePathList = new NavMeshPath();
-                NavMesh.CalculatePath(transform.position, this.waypointPathList[currWaypoint].corners[0], NavMesh.AllAreas, this.savePathList);
-            }
-
-            currPathPoint = 0;
-        }*/
-
-//        Debug.Log(Vector3.Distance(transform.position, this.carLastPos));
-
-        //this.carLastPos = transform.position;
 	}
 
     void FixedUpdate()
@@ -313,7 +284,7 @@ public class CarAI : CarTemplate
 
     void checkReverse()
     {
-        if (this.rb.velocity.magnitude < 2 && !this.reversing)
+        if (this.rb.velocity.magnitude < 1 && !this.reversing)
         {
             this.waitToReverseTime += Time.deltaTime;
         }

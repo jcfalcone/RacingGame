@@ -10,6 +10,9 @@ public class CarControl : CarTemplate
     [SerializeField]
     Image itemUI;
 
+    [SerializeField]
+    GameObject itemObj;
+
     [Header("Speed")]
 
     float originalSpeed;
@@ -37,6 +40,8 @@ public class CarControl : CarTemplate
     float lastHorizontalInput;
     float lastVerticalInput;
 
+    CarAIPlayer autoController;
+
 	// Use this for initialization
 	override protected void Start () 
     {
@@ -51,6 +56,12 @@ public class CarControl : CarTemplate
     {
         carSound();
 
+        if (this.autoController != null)
+        {
+            this.autoController.Update();
+            return;
+        }
+
         if (inputItem())
         {
             useItem();
@@ -61,6 +72,12 @@ public class CarControl : CarTemplate
 	void FixedUpdate () 
     {
         int count = 0;
+
+        if (this.autoController != null)
+        {
+            this.autoController.FixedUpdate();
+            return;
+        }
 
         if (this.originalSpeed >= 0)
         {
@@ -109,7 +126,7 @@ public class CarControl : CarTemplate
 
     bool inputItem()
     {
-        #if !UNITY_IOS || !UNITY_ANDROID
+        #if !UNITY_IOS || !UNITY_ANDROID || !UNITY_EDITOR
         if(Input.GetKeyUp(KeyCode.E))
         {
             return true;
@@ -122,7 +139,7 @@ public class CarControl : CarTemplate
     {
         lastHorizontalInput = 0;
 
-        #if UNITY_IOS || UNITY_ANDROID
+        #if UNITY_IOS || UNITY_ANDROID || !UNITY_EDITOR
         float.TryParse(Input.acceleration.x.ToString("N1"), out lastHorizontalInput);
 
         float tempHor = Mathf.Abs(lastHorizontalInput);
@@ -156,7 +173,7 @@ public class CarControl : CarTemplate
     {
         lastVerticalInput = 0;
 
-        #if UNITY_IOS || UNITY_ANDROID
+        #if UNITY_IOS || UNITY_ANDROID || !UNITY_EDITOR
         if(Input.touches.Length == 1)
         {
             lastVerticalInput = 1;
@@ -176,7 +193,7 @@ public class CarControl : CarTemplate
     bool inputBrake()
     {
         bool brakeCar = false;
-        #if UNITY_IOS || UNITY_ANDROID
+        #if UNITY_IOS || UNITY_ANDROID || !UNITY_EDITOR
 
         if(Input.touches.Length == 2)
         {
@@ -269,6 +286,24 @@ public class CarControl : CarTemplate
         {
             base.RandomItem();
             this.itemUI.sprite = this.currentItemControl.itemUI;
+            this.itemObj.SetActive(true);
+        }
+    }
+
+    override public void useItem()
+    {
+        base.useItem();
+        this.itemObj.SetActive(false);
+    }
+
+    override public void completeTrack()
+    {
+        base.completeTrack();
+
+        if (this.finalCompleted && this.localPlayer && this.autoController == null)
+        {
+            this.autoController = new CarAIPlayer(this);
+            this.autoController.Start();
         }
     }
 }

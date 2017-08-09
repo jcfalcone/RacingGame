@@ -39,6 +39,7 @@ public class OilStan : itemTemplate
 
             if (transform.localScale.magnitude < 1.6f)
             {
+                transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
                 transform.Rotate(new Vector3(0, 10, 0));
             }
         }
