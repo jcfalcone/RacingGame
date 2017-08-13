@@ -144,6 +144,7 @@
      <Compile Include="Assets\3rd Party\Toon Character Pack\Scripts\SmoothCameraOrbit.cs" />
      <Compile Include="Assets\3rd Party\Toon Character Pack\Scripts\ToonCharacterController.cs" />
      <Compile Include="Assets\CarMissile.cs" />
+     <Compile Include="Assets\itemShield.cs" />
      <Compile Include="Assets\RacerData.cs" />
      <Compile Include="Assets\Script\Car\AI\CarAI.cs" />
      <Compile Include="Assets\Script\Car\AI\CarAIPlayer.cs" />

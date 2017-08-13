@@ -11,7 +11,7 @@ public class BoosCarTrack : MonoBehaviour
     {
         if (other.CompareTag("Car"))
         {
-            other.SendMessageUpwards("AddTurbo", boostAmount, SendMessageOptions.DontRequireReceiver);
+            other.transform.parent.GetComponent<CarTurbo>().AddTurbo(boostAmount);
         }
     }
 }

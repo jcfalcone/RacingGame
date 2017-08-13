@@ -60,6 +60,7 @@ Material:
     - _CloudHeight: 0
     - _Glossiness: 0.4300518
     - _LerpValue: 0.6165803
+    - _Outline: 0.005
     - _RimPower: 1.707772
     - _Roughness: 0
     - _TimeScale: 0.01
@@ -71,6 +72,7 @@ Material:
     - _DiffuseColor: {r: 1, g: 0, b: 0, a: 1}
     - _EditorSinTime: {r: 0, g: 0, b: 0, a: 0}
     - _EditorTime: {r: 0, g: 0, b: 0, a: 0}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 0, g: 0.1188812, b: 1, a: 1}
     - _SpecularColor: {r: 0.3006994, g: 1, b: 0, a: 1}
     - _color: {r: 0.216783, g: 0, b: 1, a: 1}

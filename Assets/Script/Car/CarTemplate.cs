@@ -81,7 +81,7 @@ public class CarTemplate : MonoBehaviour , IEquatable<CarTemplate> , IComparable
     protected bool braked;
     public bool resetMotorTorque = true;
     public float maxCurrentSpeed;
-    protected float currentSpeed;
+    public float currentSpeed;
     public Rigidbody rb;
 
     public int carPosition;

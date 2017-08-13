@@ -88,16 +88,20 @@ public class CarTurbo : MonoBehaviour
         }
 
         this.canUseTurbo = false;
+
+        this.controller.maxCurrentSpeed = this.maxTurboSpeed;
         
         foreach (WheelCollider wheel in controller.rearWheelList)
         {
-            wheel.motorTorque = this.controller.maxTorque * turboAmount;//Input.GetAxis("Vertical");
+
+            if (this.controller.currentSpeed < this.controller.maxCurrentSpeed)
+            {
+                //wheel.motorTorque = this.controller.maxTorque * turboAmount;//Input.GetAxis("Vertical");
+            }
         } 
 
         turboTotalTimer = 0;
         startTurbo = true;
-
-        this.controller.maxCurrentSpeed = this.maxTurboSpeed;
 
         if (this.controller.localPlayer)
         {
