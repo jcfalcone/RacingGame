@@ -34,6 +34,10 @@ public class CarAI : CarTemplate
     [Range(1f, 50f)]
     float minDistance = 1f;
 
+    [SerializeField]
+    [Range(1f, 50f)]
+    float timeToWaypoint = 5f;
+
     [Header("Sensors")]
     [SerializeField]
     float sensorSize = 5f;
@@ -80,6 +84,7 @@ public class CarAI : CarTemplate
 
     float avoidSensitive = 0;
 
+    float currWaypointTime = 0;
     int currWaypoint = 0;
     int currPathPoint = 0;
 
@@ -161,6 +166,7 @@ public class CarAI : CarTemplate
 	// Update is called once per frame
 	void Update () 
     {
+        carSound();
 
         this.carSensors();
 
@@ -174,8 +180,24 @@ public class CarAI : CarTemplate
         this.checkDistance();
         this.checkReverse();
 
-        for (int i = 0; i < this.waypointPathList[currWaypoint].corners.Length-1; i++) {
+        /*for (int i = 0; i < this.waypointPathList[currWaypoint].corners.Length-1; i++) {
             Debug.DrawLine (this.waypointPathList[currWaypoint].corners[i], this.waypointPathList[currWaypoint].corners[i + 1], Color.red);
+        }*/
+
+        this.currWaypointTime += Time.deltaTime;
+
+        if (this.currWaypointTime > this.timeToWaypoint)
+        {
+            int previousWaypoint = currWaypoint - 1;
+
+            if (previousWaypoint < 0)
+            {
+                previousWaypoint = this.waypointPathList.Length - 1;
+            }
+
+            transform.position = this.waypointPathList[previousWaypoint].corners[0];
+            this.currWaypointTime = 0;
+            this.reversing = false;
         }
 
         this.checkItem();
@@ -270,6 +292,7 @@ public class CarAI : CarTemplate
                 else
                 {
                     this.currWaypoint++;
+                    this.currWaypointTime = 0;
                 }
 
                 this.currPathPoint = 0;

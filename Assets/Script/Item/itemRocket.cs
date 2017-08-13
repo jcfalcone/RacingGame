@@ -31,6 +31,11 @@ public class itemRocket : itemTemplate
 
     void OnCollisionEnter(Collision collision)
     {
+        if (collision.transform.CompareTag("Car"))
+        {
+            collision.gameObject.SendMessageUpwards("misselCar");
+        }
+
         this.itemEffect(collision.contacts[0].point);
     }
 

@@ -22,6 +22,9 @@ public class UIManager : MonoBehaviour
     GameObject[] startCanvas;
 
     [SerializeField]
+    AudioSource startSound;
+
+    [SerializeField]
     PlayableDirector timeline;
 
     [SerializeField]
@@ -94,10 +97,10 @@ public class UIManager : MonoBehaviour
             Color tempColor = this.startRaceNumbers[countNumbers].color;
             Vector3 tempScale = this.startRaceNumbersRect[countNumbers].localScale;
 
-            tempColor.a += Time.unscaledDeltaTime * 1.3f;
+            tempColor.a += Time.unscaledDeltaTime * 1.1f;
 
             this.startRaceNumbers[countNumbers].color = tempColor;
-            this.startRaceNumbersRect[countNumbers].localScale = Vector3.Lerp(tempScale, this.vectorOne, Time.unscaledDeltaTime * 1.3f);
+            this.startRaceNumbersRect[countNumbers].localScale = Vector3.Lerp(tempScale, this.vectorOne, Time.unscaledDeltaTime * 1.1f);
 
             if (this.startRaceNumbers[countNumbers].color.a >= 1f)
             {
@@ -124,6 +127,7 @@ public class UIManager : MonoBehaviour
                 this.showNumbers = true;
                 this.checkDirector = false;
                 this.timeline.gameObject.SetActive(false);
+                this.startSound.Play();
             }
         }
 	}

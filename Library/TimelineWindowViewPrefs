@@ -11,22 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 12941, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Keys:
-  - {fileID: 11400000, guid: 5fcee797736a449a9844f497f51ef33f, type: 2}
-  m_Vals:
-  - timeInFrames: 1
-    timeAreaShownRange: {x: -0.17421603, y: 9.825784}
-    m_Keys:
-    - {fileID: 114788100231054838, guid: 5fcee797736a449a9844f497f51ef33f, type: 2}
-    - {fileID: 114784532363593432, guid: 5fcee797736a449a9844f497f51ef33f, type: 2}
-    - {fileID: 114760913417251514, guid: 5fcee797736a449a9844f497f51ef33f, type: 2}
-    - {fileID: 114917898222099194, guid: 5fcee797736a449a9844f497f51ef33f, type: 2}
-    m_Vals:
-    - collapsed: 0
-      showInlineCurves: 0
-    - collapsed: 0
-      showInlineCurves: 0
-    - collapsed: 0
-      showInlineCurves: 0
-    - collapsed: 0
-      showInlineCurves: 0
+  m_Keys: []
+  m_Vals: []

@@ -1,9 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManagerMenu : MonoBehaviour 
 {
+    public static UIManagerMenu instance
+    {
+        get { return _instance; }//can also use just get;
+        set { _instance = value; }//can also use just set;
+    }
+
+    //Creates a class variable to keep track of GameManger
+    static UIManagerMenu _instance = null;
+
     [SerializeField]
     Animator camAnim;
 
@@ -13,14 +23,30 @@ public class UIManagerMenu : MonoBehaviour
     [SerializeField]
     GameObject touchCanvas;
 
+    [SerializeField]
+    Text SFXSound;
+
+    [SerializeField]
+    Text MUSSound;
+
     bool startGame = false;
 
     AsyncOperation async;
 
 	// Use this for initialization
-	void Start () 
+	void Awake () 
     {
-		
+        //check if GameManager instance already exists in Scene
+        if(instance)
+        {
+            //GameManager exists,delete copy
+            DestroyImmediate(gameObject);
+        }
+        else
+        {
+            //assign GameManager to variable "_instance"
+            instance = this;
+        }
 	}
 	
 	// Update is called once per frame
@@ -84,6 +110,16 @@ public class UIManagerMenu : MonoBehaviour
     {
         this.mainMenuAnimator.enabled = true;
         this.mainMenuAnimator.CrossFade("MainMenuMapToInitial", 0f);
+    }
+
+    public void updateSFXLabel(int SFXVol)
+    {
+        this.SFXSound.text = SFXVol.ToString();
+    }
+
+    public void updateMUSLabel(int MUSVol)
+    {
+        this.MUSSound.text = MUSVol.ToString();
     }
 
 }

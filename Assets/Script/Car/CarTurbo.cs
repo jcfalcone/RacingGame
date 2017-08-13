@@ -5,6 +5,11 @@ using UnityEngine;
 public class CarTurbo : MonoBehaviour 
 {
 
+
+    [Header("Particles")]
+    [SerializeField]
+    ParticleSystem turboParticle;
+
     [Header("Turbo")]
 
     [SerializeField]
@@ -19,9 +24,13 @@ public class CarTurbo : MonoBehaviour
     [SerializeField]
     float turboZoomRatio;
 
+    [SerializeField]
+    float cooldown;
+
     float turboTotalTimer;
 
     bool startTurbo = false;
+    bool canUseTurbo = true;
 
     float originalZoomRatio;
     float originalDistance;
@@ -55,31 +64,61 @@ public class CarTurbo : MonoBehaviour
                     startTurbo = false;
                 }
 
-                controller.maxCurrentSpeed = controller.maxSpeed;
-                controller.resetMotorTorque = true;
+                if (this.turboParticle != null)
+                {
+                    this.turboParticle.Stop();
+                }
+
+                this.controller.maxCurrentSpeed = this.controller.maxSpeed;
+                this.controller.resetMotorTorque = true;
             }
         }
     }
 
     public void AddTurbo(float turboAmount)
     {
+        this.AddTurbo(turboAmount, false);
+    }
 
+    public void AddTurbo(float turboAmount, bool item)
+    {
+        if (!this.canUseTurbo && !item)
+        {
+            return;
+        }
+
+        this.canUseTurbo = false;
+        
         foreach (WheelCollider wheel in controller.rearWheelList)
         {
-            wheel.motorTorque = controller.maxTorque * turboAmount;//Input.GetAxis("Vertical");
-
-            turboTotalTimer = 0;
-            startTurbo = true;
-
-            controller.maxCurrentSpeed = this.maxTurboSpeed;
-
-            if (this.controller.localPlayer)
-            {
-                this.cameraController.distance = this.turboDistance;
-                this.cameraController.zoomRatio = this.turboZoomRatio;
-            }
+            wheel.motorTorque = this.controller.maxTorque * turboAmount;//Input.GetAxis("Vertical");
         } 
 
-        controller.resetMotorTorque = false;
+        turboTotalTimer = 0;
+        startTurbo = true;
+
+        this.controller.maxCurrentSpeed = this.maxTurboSpeed;
+
+        if (this.controller.localPlayer)
+        {
+            this.cameraController.distance = this.turboDistance;
+            this.cameraController.zoomRatio = this.turboZoomRatio;
+        }
+
+        this.controller.resetMotorTorque = false;
+
+        if (this.turboParticle != null)
+        {
+            this.turboParticle.Play();
+        }
+
+        StartCoroutine(this.coolDownTurbo());
+    }
+
+    IEnumerator coolDownTurbo()
+    {
+        yield return new WaitForSeconds(this.cooldown);
+
+        this.canUseTurbo = true;
     }
 }

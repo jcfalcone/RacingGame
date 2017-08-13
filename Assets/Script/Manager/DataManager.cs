@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class DataManager : MonoBehaviour 
 {
-    public const string MUSIC_VOL_KEY = "MusicVolume";
-    public const string SFX_VOL_KEY   = "SfxVolume";
-    public const string HIGHSCORE_KEY = "HighScore";
+    public static string MUSIC_VOL_KEY = "musicVol";
+    public static string SFX_VOL_KEY   = "sfxVol";
+    public static string HIGHSCORE_KEY = "HighScore";
 
     [SerializeField]
     private Slider musicVolumeSlider;

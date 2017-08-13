@@ -23,6 +23,9 @@ abstract public class itemTemplate : MonoBehaviour
     Vector3 rotationForce;
 
     [SerializeField]
+    public AudioClip launchSound;
+
+    [SerializeField]
     public Sprite itemUI;
 
     protected Rigidbody rb;

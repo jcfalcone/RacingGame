@@ -38,6 +38,9 @@ public class ControlMaster : MonoBehaviour
     [SerializeField]
     public GameObject[] itemPrefabList;
 
+    [SerializeField]
+    public AudioClip[] itemAudio;
+
     float startLapTime;
     float bestTime = 0;
     float curBestTime = 0;

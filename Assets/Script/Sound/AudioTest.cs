@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class AudioTest : MonoBehaviour {
+public class AudioTest : MonoBehaviour 
+{
 
     [SerializeField]
     AudioMixerSnapshot unpausedSnap;
@@ -14,15 +15,49 @@ public class AudioTest : MonoBehaviour {
     [SerializeField]
     AudioMixer masterMixer;
 
+
+    [SerializeField]
+    float fadeInSpeed = 12;
+
+    [SerializeField]
+    AudioMixerSnapshot[] levelSnap;
+
     bool isPaused;
 
-    const string SFX_VOL = "sfxVol";
-    const string MUSIC_VOL = "musVol";
+    int SFXVolume = 5;
+    int MUSVolume = 5;
+
+    float transitionIn;
 
 	// Use this for initialization
-	void Start () {
-		
+	void Awake () 
+    {
+        if (!PlayerPrefs.HasKey(DataManager.MUSIC_VOL_KEY))
+        {
+            PlayerPrefs.SetInt(DataManager.MUSIC_VOL_KEY, 5);
+        }
+
+        if (!PlayerPrefs.HasKey(DataManager.SFX_VOL_KEY))
+        {
+            PlayerPrefs.SetInt(DataManager.SFX_VOL_KEY, 5);
+        }
+
+        this.MUSVolume = PlayerPrefs.GetInt(DataManager.MUSIC_VOL_KEY);
+        this.SFXVolume = PlayerPrefs.GetInt(DataManager.SFX_VOL_KEY);
+
+        UIManagerMenu.instance.updateMUSLabel(this.MUSVolume);
+        UIManagerMenu.instance.updateSFXLabel(this.SFXVolume);
+
+        this.transitionIn = 60 / fadeInSpeed;
+
+        DontDestroyOnLoad(this);
 	}
+
+    void Start()
+    {
+        this.masterMixer.SetFloat(DataManager.SFX_VOL_KEY, -(80f - 80f * (this.SFXVolume / 10f)));
+        this.masterMixer.SetFloat(DataManager.MUSIC_VOL_KEY, -(80f - 80f * (this.MUSVolume / 10f)));
+    }
 	
     public void OnClickPlayButton(string _ButtonName)
     {
@@ -52,14 +87,40 @@ public class AudioTest : MonoBehaviour {
         }
     }
 
-    public void SetSFXVolume(float _SFXVolume)
+    public void SetMinusSFXVolume()
     {
-        this.masterMixer.SetFloat(SFX_VOL, _SFXVolume);
+        this.SFXVolume--;
+        this.SFXVolume = Mathf.Clamp(this.SFXVolume, 0 , 10);
+        this.masterMixer.SetFloat(DataManager.SFX_VOL_KEY, -(80f - 80f * (this.SFXVolume / 10f)));
+        UIManagerMenu.instance.updateSFXLabel(this.SFXVolume);
     }
 
-    public void SetMUSVolume(float _MUSVolume)
+    public void SetPlusSFXVolume()
     {
-        this.masterMixer.SetFloat(MUSIC_VOL, _MUSVolume);
+        this.SFXVolume++;
+
+        this.SFXVolume = Mathf.Clamp(this.SFXVolume, 0 , 10);
+        this.masterMixer.SetFloat(DataManager.SFX_VOL_KEY, -(80f - 80f * (this.SFXVolume / 10f)));
+        UIManagerMenu.instance.updateSFXLabel(this.SFXVolume);
+    }
+
+    public void SetMinusMUSVolume()
+    {
+
+        this.MUSVolume--;
+        this.MUSVolume = Mathf.Clamp(this.MUSVolume, 0 , 10);
+        this.masterMixer.SetFloat(DataManager.MUSIC_VOL_KEY, -(80f - 80f * (this.MUSVolume / 10f)));
+
+        UIManagerMenu.instance.updateMUSLabel(this.MUSVolume);
+    }
+
+    public void SetPlusMUSVolume()
+    {
+        this.MUSVolume++;
+        this.MUSVolume = Mathf.Clamp(this.MUSVolume, 0 , 10);
+        this.masterMixer.SetFloat(DataManager.MUSIC_VOL_KEY, -(80f - 80f * (this.MUSVolume / 10f)));
+
+        UIManagerMenu.instance.updateMUSLabel(this.MUSVolume);
     }
 
     public void Save()
@@ -67,10 +128,18 @@ public class AudioTest : MonoBehaviour {
         float musicVolume = 0f;
         float sfxVolume = 0f;
 
-        this.masterMixer.GetFloat(MUSIC_VOL, out musicVolume);
-        this.masterMixer.GetFloat(SFX_VOL, out sfxVolume);
+        PlayerPrefs.SetInt(DataManager.MUSIC_VOL_KEY, this.MUSVolume);
+        PlayerPrefs.SetInt(DataManager.SFX_VOL_KEY, this.SFXVolume);
+    }
 
-        PlayerPrefs.SetFloat(DataManager.MUSIC_VOL_KEY, musicVolume);
-        PlayerPrefs.SetFloat(DataManager.MUSIC_VOL_KEY, sfxVolume);
+    public void crossFadeLevelMusic(int level)
+    {
+        if (level > this.levelSnap.Length)
+        {
+            Debug.LogWarning("Invalid level number: "+level);
+            return;
+        }
+
+        this.levelSnap[level].TransitionTo(transitionIn);
     }
 }

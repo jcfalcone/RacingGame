@@ -14,9 +14,9 @@ public class CarTemplate : MonoBehaviour , IEquatable<CarTemplate> , IComparable
     [SerializeField]
     protected Transform spawnPoint;
 
-    [SerializeField]
     protected GameObject currentItem;
     protected itemTemplate currentItemControl;
+
 
     [Header("UI")]
     [SerializeField]
@@ -28,6 +28,10 @@ public class CarTemplate : MonoBehaviour , IEquatable<CarTemplate> , IComparable
     [Header("Camera")]
     [SerializeField]
     GameObject finalCamera;
+
+    [Header("Sound")]
+    [SerializeField]
+    AudioSource itemSource;
 
     [Header("Speed")]
     [SerializeField]
@@ -61,6 +65,9 @@ public class CarTemplate : MonoBehaviour , IEquatable<CarTemplate> , IComparable
     [SerializeField]
     protected Transform[] frontWheelTransList;
 
+    [SerializeField]
+    int[] gearRatio;
+
     public float totalScore
     {
         get
@@ -68,6 +75,8 @@ public class CarTemplate : MonoBehaviour , IEquatable<CarTemplate> , IComparable
             return (this.currLap * 200000) + (this.currWaypointIndex * 1000) - this.nextWaypointDist;
         }
     }
+
+    protected AudioSource carAudio;
 
     protected bool braked;
     public bool resetMotorTorque = true;
@@ -103,6 +112,8 @@ public class CarTemplate : MonoBehaviour , IEquatable<CarTemplate> , IComparable
         this.maxCurrentSpeed = this.maxSpeed;
 
         CarPositionMaster.instance.addPlayer(this);
+
+        this.carAudio = GetComponent<AudioSource>();
 
         /*if (this.localPlayer || 1 == 1)
         {
@@ -321,9 +332,34 @@ public class CarTemplate : MonoBehaviour , IEquatable<CarTemplate> , IComparable
 
             GameObject item = Instantiate(this.currentItem, spawnPos, this.spawnPoint.rotation);
 
+            this.itemSource.PlayOneShot(this.currentItemControl.launchSound);
+
             this.currentItem = null;
             this.currentItemControl = null;
         }
+    }
+
+    protected void carSound()
+    {
+        int gearMinValue = 0;
+        int gearMaxValue = 0;
+        for (int count = 0; count < this.gearRatio.Length; count++)
+        {
+            if (this.gearRatio[count] < this.currentSpeed)
+            {
+                gearMinValue = gearMaxValue;
+                gearMaxValue = this.gearRatio[count];
+            }
+        }
+
+        float enginePitch = Mathf.Clamp(((currentSpeed - gearMinValue) / (gearMaxValue - gearMinValue)), 1f, 3f);
+
+        if ((gearMaxValue - gearMinValue) == 0)
+        {
+            enginePitch = 1;
+        }
+
+        this.carAudio.pitch = Mathf.Lerp(this.carAudio.pitch, enginePitch, Time.deltaTime * 2);
     }
 	
 }

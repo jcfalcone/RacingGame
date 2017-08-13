@@ -26,16 +26,10 @@ public class CarControl : CarTemplate
     [SerializeField]
     float highSpeedSteerAngle = 1;
 
-
-    [SerializeField]
-    int[] gearRatio;
-
     float carSidewayFriction;
     float carForwardFriction;
     float slipSidewayFriction;
     float slipForwardFriction;
-
-    AudioSource carAudio;
 
     float lastHorizontalInput;
     float lastVerticalInput;
@@ -46,8 +40,6 @@ public class CarControl : CarTemplate
 	override protected void Start () 
     {
         base.Start();
-
-        this.carAudio = GetComponent<AudioSource>();
 
         startFriction();
 	}
@@ -255,29 +247,6 @@ public class CarControl : CarTemplate
 
             this.setupFriction(this.carForwardFriction, this.carSidewayFriction);
         }
-    }
-
-    void carSound()
-    {
-        int gearMinValue = 0;
-        int gearMaxValue = 0;
-        for (int count = 0; count < this.gearRatio.Length; count++)
-        {
-            if (this.gearRatio[count] < this.currentSpeed)
-            {
-                gearMinValue = gearMaxValue;
-                gearMaxValue = this.gearRatio[count];
-            }
-        }
-
-        float enginePitch = Mathf.Clamp(((currentSpeed - gearMinValue) / (gearMaxValue - gearMinValue)), 1f, 3f);
-
-        if ((gearMaxValue - gearMinValue) == 0)
-        {
-            enginePitch = 1;
-        }
-
-        this.carAudio.pitch = Mathf.Lerp(this.carAudio.pitch, enginePitch, Time.deltaTime * 2);
     }
 
     override public void RandomItem()

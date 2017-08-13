@@ -6,7 +6,8 @@ AudioMixerController:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: SoundEffects
-  m_OutputGroup: {fileID: 24300002, guid: ae17bdae5a6c6470eb308207cfab1bca, type: 2}
+  m_OutputGroup: {fileID: 243290182226010166, guid: ae17bdae5a6c6470eb308207cfab1bca,
+    type: 2}
   m_MasterGroup: {fileID: 24300002}
   m_Snapshots:
   - {fileID: 24500006}
@@ -22,6 +23,7 @@ AudioMixerController:
     - bc9066407b611470e803502e6aafc658
     - c6e8a48d8f7674d2591a2972b7129c3a
     - 08c530dc088fb4ea1ab186dd71495717
+    - 571f0faf9c81a448bb6b8b6e0ab9f946
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -37,6 +39,7 @@ AudioMixerGroupController:
   - {fileID: 243799258395584638}
   - {fileID: 243087845154304242}
   - {fileID: 243703533212433996}
+  - {fileID: 243058745334828410}
   m_Volume: 2d8340a88173f4052b77ad103fe484de
   m_Pitch: 3733710c2193d4131b00945e7de62ce2
   m_Effects:
@@ -66,8 +69,28 @@ AudioMixerSnapshotController:
   m_Name: Unpaused
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 9d290f83257054ebc985a5a62fab19c1
-  m_FloatValues: {}
+  m_FloatValues:
+    22cd9c74157b74f91837d3eb479ac66b: -8.362404
+    b2af57b9293234c5da7ecae2d07639c7: -10.345207
+    1b734cdbbf60b4e21840c6f6edeeba86: -8.362404
   m_TransitionOverrides: {}
+--- !u!243 &243058745334828410
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: UI
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 571f0faf9c81a448bb6b8b6e0ab9f946
+  m_Children: []
+  m_Volume: b2af57b9293234c5da7ecae2d07639c7
+  m_Pitch: 0e6394ebf0f464c91907ca98e5d381db
+  m_Effects:
+  - {fileID: 244447725783677970}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!243 &243087845154304242
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -107,7 +130,7 @@ AudioMixerGroupController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Gunshots
+  m_Name: Itens
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 08c530dc088fb4ea1ab186dd71495717
   m_Children: []
@@ -128,6 +151,19 @@ AudioMixerEffectController:
   m_EffectID: a4973c26a232b421b9f71033109fdc4b
   m_EffectName: Attenuation
   m_MixLevel: 5007196661bdb46a5830b4e2a56b071b
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &244447725783677970
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: 8960cce47a1b04040bac585a6b45feb3
+  m_EffectName: Attenuation
+  m_MixLevel: cc7894bddea854177a6b60cd3ed725c5
   m_Parameters: []
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
