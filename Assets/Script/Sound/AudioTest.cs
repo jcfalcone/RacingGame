@@ -5,6 +5,14 @@ using UnityEngine.Audio;
 
 public class AudioTest : MonoBehaviour 
 {
+	public static AudioTest instance
+	{
+		get { return _instance; }//can also use just get;
+		set { _instance = value; }//can also use just set;
+	}
+
+	//Creates a class variable to keep track of GameManger
+	static AudioTest _instance = null;
 
     [SerializeField]
     AudioMixerSnapshot unpausedSnap;
@@ -18,6 +26,9 @@ public class AudioTest : MonoBehaviour
 
     [SerializeField]
     float fadeInSpeed = 12;
+
+    [SerializeField]
+    AudioSource[] levelAudio;
 
     [SerializeField]
     AudioMixerSnapshot[] levelSnap;
@@ -50,7 +61,19 @@ public class AudioTest : MonoBehaviour
 
         this.transitionIn = 60 / fadeInSpeed;
 
-        DontDestroyOnLoad(this);
+		DontDestroyOnLoad(this);
+
+		//check if GameManager instance already exists in Scene
+		if(instance)
+		{
+			//GameManager exists,delete copy
+			DestroyImmediate(gameObject);
+		}
+		else
+		{
+			//assign GameManager to variable "_instance"
+			instance = this;
+		}
 	}
 
     void Start()
@@ -140,6 +163,12 @@ public class AudioTest : MonoBehaviour
             return;
         }
 
+        for (int count = 0; count < this.levelAudio.Length; count++)
+        {
+            this.levelAudio[count].Stop();
+        }
+
+        this.levelAudio[level].Play();
         this.levelSnap[level].TransitionTo(transitionIn);
     }
 }

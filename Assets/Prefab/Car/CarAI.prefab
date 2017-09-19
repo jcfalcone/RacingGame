@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 114960969665365734}
   - component: {fileID: 114067916743247180}
   - component: {fileID: 114365786975097040}
+  - component: {fileID: 114284985616284578}
   m_Layer: 0
   m_Name: CarAI
   m_TagString: Car
@@ -1802,9 +1803,11 @@ MonoBehaviour:
   gearRatio: 
   resetMotorTorque: 1
   maxCurrentSpeed: 0
+  currentSpeed: 0
   rb: {fileID: 0}
   carPosition: 0
   currWaypointIndex: 0
+  m_shielded: 0
   avoidSpeed: 15
   maxSteer: 30
   minDistance: 10
@@ -1837,6 +1840,21 @@ MonoBehaviour:
   slipSoundAt: 1
   slipPrefab: {fileID: 1608982583724762, guid: 3750baf9047ed4a2480f37ef6b9480bb, type: 2}
   currentSlip: 0
+--- !u!114 &114284985616284578
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1374353069557854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c594bee5c931d41b785c38fc944dd37d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kartBodyRender: {fileID: 0}
+  kartAerofolioRender: {fileID: 0}
+  kartParalamaRender: {fileID: 0}
+  charParent: {fileID: 0}
 --- !u!114 &114365786975097040
 MonoBehaviour:
   m_ObjectHideFlags: 1

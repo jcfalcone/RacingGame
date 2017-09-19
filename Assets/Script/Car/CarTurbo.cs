@@ -47,6 +47,10 @@ public class CarTurbo : MonoBehaviour
 
         this.originalDistance = this.cameraController.distance;
         this.originalZoomRatio = this.cameraController.zoomRatio;	
+
+        this.maxTurboSpeed  = LoadDataManager.instance.getParameter<float>("MaxTurboSpeed", this.maxTurboSpeed);
+        this.turboTime      = LoadDataManager.instance.getParameter<float>("TurboTime", this.turboTime);
+        this.cooldown       = LoadDataManager.instance.getParameter<float>("TurboCoolDown", this.cooldown);
     }
 
     void Update()

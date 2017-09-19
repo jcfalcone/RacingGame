@@ -33,6 +33,8 @@ public class CarCamera : MonoBehaviour {
     Vector3 rotationVector;
     float defaultFOV;
 
+    ControlMaster controlMaster;
+
 	// Use this for initialization
 	void Start () 
     {
@@ -42,10 +44,18 @@ public class CarCamera : MonoBehaviour {
 
         this.curDistance = this.distance;
         this.curZoomRatio = this.zoomRatio;
+
+        this.controlMaster = ControlMaster.instance;
 	}
 
     void LateUpdate()
     {
+
+        if (this.controlMaster.paused)
+        {
+            return;
+        }
+
         float wantedHeight = car.position.y + height;
 
         float myAngle = Mathf.LerpAngle(transform.eulerAngles.y, rotationVector.y, Time.unscaledDeltaTime * rotationVelocity);
@@ -72,6 +82,12 @@ public class CarCamera : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () 
     {
+
+        if (this.controlMaster.paused)
+        {
+            return;
+        }
+
         Vector3 localVelocity = car.InverseTransformDirection(this.carRb.velocity);
 
         localVelocity.Normalize();
@@ -89,4 +105,10 @@ public class CarCamera : MonoBehaviour {
 
         Camera.main.fieldOfView = defaultFOV + velMag * this.curZoomRatio;
 	}
+
+    public void SetPlayer(Transform player, Transform lookAt)
+    {
+        this.car = player;
+        this.lookObj = lookAt;
+    }
 }

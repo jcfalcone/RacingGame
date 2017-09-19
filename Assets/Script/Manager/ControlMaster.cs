@@ -21,14 +21,21 @@ public class ControlMaster : MonoBehaviour
     [SerializeField]
     public int totalLaps = 3;
 
+    [Header("Spawnpoints")]
+    [SerializeField]
+    Transform[] spawnpointList;
+
     [Header("AI Waypoints")]
     [SerializeField]
     public Transform[] waypointList;
 
+    [Header("Camera")]
+    [SerializeField]
+    CarCamera playerCamera;
 
     [Header("Checkpoits")]
     [SerializeField]
-    CheckPoint[] checkpointList;
+    public CheckPoint[] checkpointList;
 
     [Header("UI")]
     [SerializeField]
@@ -43,18 +50,16 @@ public class ControlMaster : MonoBehaviour
 
     float startLapTime;
     float bestTime = 0;
-    float curBestTime = 0;
+
+    CarControl playerControl;
 
     public int currLap = 0;
+
+    public bool paused = false;
 
 	// Use this for initialization
 	void Start () 
     {
-
-        if (bestTime == 0)
-        {
-            bestTimeLabel.text = "--:--.--";
-        }
 
         //check if GameManager instance already exists in Scene
         if(instance)
@@ -66,6 +71,33 @@ public class ControlMaster : MonoBehaviour
         {
             //assign GameManager to variable "_instance"
             instance = this;
+        }
+
+        this.totalLaps = LoadDataManager.instance.getParameter<int>("TotalLaps", this.totalLaps);
+
+        GameObject player = Instantiate(PlayerData.instance.kartPlayerPrefab, this.spawnpointList[0].transform.position, this.spawnpointList[0].transform.rotation);
+        CarPrepare tempPrepare = player.GetComponent<CarPrepare>();
+        tempPrepare.SetUpKart(LoadDataManager.instance.kartMaterials[PlayerData.instance.currKart]);
+
+        this.playerControl = player.GetComponent<CarControl>();
+
+        Transform playerLookAt = player.transform.Find("CameraLookObj");
+
+        this.playerCamera.SetPlayer(player.transform, playerLookAt);
+
+        List<KartMaterial> materials = new List<KartMaterial>(LoadDataManager.instance.kartMaterials);
+
+        materials.RemoveAt(PlayerData.instance.currKart);
+
+        for (int count = 1; count < this.spawnpointList.Length; count++)
+        {
+            int enemyMaterial = UnityEngine.Random.Range(0, 1000) % materials.Count;
+
+            player = Instantiate(PlayerData.instance.kartAIPrefab, this.spawnpointList[count].transform.position, this.spawnpointList[0].transform.rotation);
+            tempPrepare = player.GetComponent<CarPrepare>();
+            tempPrepare.SetUpKart(materials[enemyMaterial]);
+
+            materials.RemoveAt(enemyMaterial);
         }
 	}
 
@@ -82,7 +114,8 @@ public class ControlMaster : MonoBehaviour
         {
             bestTime = currTime;
             TimeSpan ts = TimeSpan.FromSeconds(bestTime);
-            bestTimeLabel.text = ts.Minutes.ToString("00") + ":" + ts.Seconds.ToString("00") + ":" + Mathf.Round(ts.Milliseconds / 10);
+
+            //bestTimeLabel.text = ts.Minutes.ToString("00") + ":" + ts.Seconds.ToString("00") + ":" + Mathf.Round(ts.Milliseconds / 10);
         }
 
         for(int count = 0; count < this.checkpointList.Length; count++)
@@ -110,12 +143,19 @@ public class ControlMaster : MonoBehaviour
 
     public void PauseGame()
     {
+        this.paused = true;
         Time.timeScale = 0f;
     }
 
     public void UnPauseGame()
     {
+        this.paused = false;
         Time.timeScale = 1f;
+    }
+
+    public void UseItem()
+    {
+        this.playerControl.useItem();
     }
 
 

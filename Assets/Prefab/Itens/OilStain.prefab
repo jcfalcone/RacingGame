@@ -138,7 +138,7 @@ MonoBehaviour:
   Speed: 0
   rotationForce: {x: 0, y: 0, z: 0}
   launchSound: {fileID: 8300000, guid: 99f43d61cfb064aed9847a02b0d89c45, type: 3}
-  itemUI: {fileID: 21300000, guid: 6f3c176c9755d4dbea713d31acb2b8c3, type: 3}
+  itemUI: {fileID: 21300000, guid: 41257a1d8afcc4ef4b17dceeda884f14, type: 3}
   floorLayer:
     serializedVersion: 2
     m_Bits: 256

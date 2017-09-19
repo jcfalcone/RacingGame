@@ -10,6 +10,7 @@ TagManager:
   - Road
   - Slowzone
   - FxTemporaire
+  - ItemUI
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - Road
   - PowerUps
   - CheckPoints
-  - 
+  - Players
   - 
   - 
   - 

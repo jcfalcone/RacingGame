@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 5f4ba1e3b04cf4f2e88c1103d862a7fd
+timeCreated: 1504906163
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Wortellina
+  fontNames:
+  - Wortellina
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

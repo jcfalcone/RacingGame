@@ -57,14 +57,14 @@ public class CarPositionMaster : MonoBehaviour
             {
                 int currWaypoint = this.carList[countCar].currWaypointIndex + 1;
 
-                if ((currWaypoint + 1) >= waypointList.Length)
+                if ((currWaypoint) >= waypointList.Length)
                 {
                     currWaypoint = 0;
                 }
 
                 if (Vector3.Distance(waypointList[currWaypoint].position, this.carList[countCar].transform.position) < this.minDistanceWaypoint)
                 {
-                     this.carList[countCar].setCarWaypoint(currWaypoint, Vector3.Distance(waypointList[currWaypoint + 1].position, this.carList[countCar].transform.position));
+                     this.carList[countCar].setCarWaypoint(currWaypoint, Vector3.Distance(waypointList[currWaypoint].position, this.carList[countCar].transform.position));
                 }
                 else
                 {

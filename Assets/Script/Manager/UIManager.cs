@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Playables;
+using TMPro;
 
 public class UIManager : MonoBehaviour 
 {
@@ -31,6 +32,13 @@ public class UIManager : MonoBehaviour
     Text[] startRaceNumbers;
     RectTransform[] startRaceNumbersRect;
 
+    [Header("Pause")]
+    [SerializeField]
+    GameObject pauseUI;
+
+    [SerializeField]
+    GameObject pauseUIBackground;
+
     [Header("Final")]
     [SerializeField]
     GameObject finalCanvas;
@@ -47,7 +55,30 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     Color currPlayerColor;
 
+    [Header("Final Exp Bar")]
+    [SerializeField]
+    TextMeshProUGUI prevLevelLbl;
+
+    [SerializeField]
+    TextMeshProUGUI currLevelLbl;
+
+    [SerializeField]
+    Image expBar;
+
+    bool updateExpBar = false;
+    int prevLvl;
+    int prevExp;
+
+    int lvlRequiredExp = -1;
+    float destPerc = -1;
+
+    int countLvl;
+
+    int currExp;
+
     bool showNumbers = false;
+
+    [SerializeField]
     bool checkDirector = true;
 
     int countNumbers = 0;
@@ -55,11 +86,17 @@ public class UIManager : MonoBehaviour
 
     Vector3 vectorOne = Vector3.one;
 
+    string lapDefaultTxt;
+
     AsyncOperation async;
 
 	// Use this for initialization
 	void Start () 
     {
+
+
+        this.updatePlayerExpBar(0, 25, 1, 3);
+
         Vector3 newScale = new Vector3(1.5f, 1.5f, 1.5f);
 
         this.startRaceNumbersRect = new RectTransform[this.startRaceNumbers.Length];
@@ -73,6 +110,8 @@ public class UIManager : MonoBehaviour
             this.startRaceNumbersRect[count] = this.startRaceNumbers[count].gameObject.GetComponent<RectTransform>();
             this.startRaceNumbersRect[count].localScale = newScale;
         }
+
+        this.lapDefaultTxt = this.lapNumber.text;
 
         ControlMaster.instance.PauseGame();
 
@@ -130,25 +169,64 @@ public class UIManager : MonoBehaviour
                 this.startSound.Play();
             }
         }
+
+        if (this.updateExpBar)
+        {
+            if (this.countLvl > 0)
+            {
+                this.expBar.fillAmount = Mathf.Lerp(this.expBar.fillAmount, 1f, Time.deltaTime);
+
+                if (this.expBar.fillAmount >= 0.95f)
+                {
+
+                    this.prevLvl++;
+
+                    this.expBar.fillAmount = 0;
+                    this.currLevelLbl.text = (prevLvl + 2).ToString();
+                    this.prevLevelLbl.text = (prevLvl + 1).ToString();
+
+                    //this.expBar.fillAmount = 1f;
+                    this.countLvl--;
+                }
+            }
+            else
+            {
+                if (this.lvlRequiredExp == -1)
+                {
+                    this.lvlRequiredExp = PlayerData.instance.requiredLevelExp(this.prevLvl + 1);
+                    this.destPerc = (float)this.currExp / (float)this.lvlRequiredExp;
+                }
+
+                this.expBar.fillAmount = Mathf.Lerp(this.expBar.fillAmount, this.destPerc, Time.deltaTime);
+            }
+        }
 	}
 
     public void ShowStartNumber()
     {
-        this.showNumbers = true; 
+        this.showNumbers = true;
+        this.checkDirector = false;
+        this.timeline.gameObject.SetActive(false);
+        this.startSound.Play();
+
     }
 
     public void UpdateLapNumber(int lap, int totalLap)
     {
-        this.lapNumber.text = string.Format("LAP {0} of {1}", lap, totalLap);
+        string newLap = this.lapDefaultTxt;
+        newLap = newLap.Replace("[CURRLAP]", lap.ToString());
+        newLap = newLap.Replace("[TOTALLAP]", totalLap.ToString());
+        this.lapNumber.text = string.Format(newLap, lap, totalLap);
     }
 
-    public void OnClickMap(string mapToLoad)
+    public void OnClickMap(int mapToLoad)
     {
-        StartCoroutine(startLoadLevel(mapToLoad));
+		AudioTest.instance.crossFadeLevelMusic (mapToLoad);
+        StartCoroutine(startLoadLevel(mapToLoad +1));
         StartCoroutine(checkProgress());
     }
 
-    IEnumerator startLoadLevel(string mapToLoad)
+    IEnumerator startLoadLevel(int mapToLoad)
     {
         this.async = Application.LoadLevelAsync(mapToLoad);
         this.async.allowSceneActivation = false;
@@ -164,6 +242,7 @@ public class UIManager : MonoBehaviour
         }
 
         this.async.allowSceneActivation = true;
+        Time.timeScale = 1f;
     }
 
     public void nextLevel()
@@ -208,6 +287,37 @@ public class UIManager : MonoBehaviour
         racerObjPoints.text     = "+" + totalPoints;
 
         countRacerEnd++;
+    }
 
+    public void Pause()
+    {
+        if (ControlMaster.instance.paused)
+        {
+            ControlMaster.instance.UnPauseGame();
+            this.pauseUI.SetActive(false);
+            this.pauseUIBackground.SetActive(false);
+        }
+        else
+        {
+            ControlMaster.instance.PauseGame();
+            this.pauseUI.SetActive(true);
+            this.pauseUIBackground.SetActive(true);
+        }
+    }
+
+    public void updatePlayerExpBar(int prevExp, int currExp, int prevLvl, int currLvl)
+    {
+        this.prevExp = prevExp;
+        this.prevLvl = prevLvl;
+        this.currExp = currExp;
+        this.lvlRequiredExp = -1;
+
+        this.countLvl = currLvl - this.prevLvl;
+        this.updateExpBar = true;
+
+        this.currLevelLbl.text = (prevLvl + 2).ToString();
+        this.prevLevelLbl.text = (prevLvl + 1).ToString();
+
+        this.expBar.fillAmount = prevExp / PlayerData.instance.requiredLevelExp(this.prevLvl + 1);
     }
 }

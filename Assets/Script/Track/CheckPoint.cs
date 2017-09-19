@@ -7,6 +7,10 @@ public class CheckPoint : MonoBehaviour {
     [SerializeField]
     float distanceToActivate = 10;
 
+
+    [SerializeField]
+    bool debug = false;
+
     GameObject[] player;
 
     bool complete = false;
@@ -21,6 +25,16 @@ public class CheckPoint : MonoBehaviour {
     {
         for (int count = 0; count < this.player.Length; count++)
         {
+            
+            if (this.player[count].transform.name == "Car" && this.debug)
+            {
+                if (Vector3.Distance(this.player[count].transform.position, transform.position) < 30f)
+                {
+                    //Debug.Break();
+                }
+            
+            }
+
             if (Vector3.Distance(this.player[count].transform.position, transform.position) < distanceToActivate)
             {
                 //ControlMaster.instance.AddCheckpoint(gameObject.GetInstanceID());

@@ -14,6 +14,12 @@ public class CarSlip : MonoBehaviour
 
     public void slipCar()
     {
+        if (controller.shielded)
+        {
+            controller.removeShield();
+            return;
+        }
+
         StartCoroutine(slip());
     }
 

@@ -23,11 +23,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ToonShade:
-        m_Texture: {fileID: 8900000, guid: 0ced00ce2fd25c444a4ca14ab6dd0e3b, type: 3}
+        m_Texture: {fileID: 8900000, guid: 26200156ceba94d45945249acfd510f8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _RimPower: 0
     m_Colors:
-    - _Color: {r: 0.43283582, g: 0.42524615, b: 0.4134551, a: 1}
+    - _Color: {r: 0.9485294, g: 0.9485294, b: 0.9485294, a: 1}
     - _RimColor: {r: 0.26, g: 0.19, b: 0.16, a: 0}

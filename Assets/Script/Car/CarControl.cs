@@ -41,6 +41,16 @@ public class CarControl : CarTemplate
     {
         base.Start();
 
+        GameObject itemImgUI = GameObject.FindGameObjectWithTag("ItemUI");
+
+        if (itemImgUI != null)
+        {
+            this.itemUI = itemImgUI.GetComponent<Image>();
+            this.itemObj = itemImgUI.transform.parent.parent.gameObject;
+
+            this.itemObj.SetActive(false);
+        }
+
         startFriction();
 	}
 
@@ -118,7 +128,7 @@ public class CarControl : CarTemplate
 
     bool inputItem()
     {
-        #if !UNITY_IOS || !UNITY_ANDROID || !UNITY_EDITOR
+        #if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
         if(Input.GetKeyUp(KeyCode.E))
         {
             return true;
@@ -131,7 +141,7 @@ public class CarControl : CarTemplate
     {
         lastHorizontalInput = 0;
 
-        #if UNITY_IOS || UNITY_ANDROID || !UNITY_EDITOR
+        #if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
         float.TryParse(Input.acceleration.x.ToString("N1"), out lastHorizontalInput);
 
         float tempHor = Mathf.Abs(lastHorizontalInput);
@@ -165,7 +175,7 @@ public class CarControl : CarTemplate
     {
         lastVerticalInput = 0;
 
-        #if UNITY_IOS || UNITY_ANDROID || !UNITY_EDITOR
+        #if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
         if(Input.touches.Length == 1)
         {
             lastVerticalInput = 1;
@@ -185,7 +195,7 @@ public class CarControl : CarTemplate
     bool inputBrake()
     {
         bool brakeCar = false;
-        #if UNITY_IOS || UNITY_ANDROID || !UNITY_EDITOR
+        #if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
 
         if(Input.touches.Length == 2)
         {

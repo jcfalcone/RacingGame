@@ -1,26 +1,30 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Car/AI/CarAI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Car/CarControl.cs">
     <Files>
-      <File FileName="Assets/Script/Manager/ControlMaster.cs" Line="39" Column="40" />
-      <File FileName="Assets/Script/Sound/AudioTest.cs" Line="51" Column="9" />
-      <File FileName="Assets/Script/Manager/UIManagerMenu.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Manager/DataManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/Manager/UIManager.cs" Line="103" Column="134" />
-      <File FileName="Assets/Script/Car/AI/CarAI.cs" Line="200" Column="36" />
-      <File FileName="Assets/Script/Car/CarControl.cs" Line="84" Column="33" />
-      <File FileName="Assets/Script/Car/CarTemplate.cs" Line="251" Column="31" />
-      <File FileName="Assets/Script/Item/itemTemplate.cs" Line="26" Column="33" />
-      <File FileName="Assets/Script/Item/itemRocket.cs" Line="38" Column="9" />
-      <File FileName="Assets/Script/Item/OilStan.cs" Line="56" Column="10" />
-      <File FileName="Assets/Script/Car/CarTurbo.cs" Line="89" Column="9" />
-      <File FileName="Assets/CarMissile.cs" Line="15" Column="26" />
-      <File FileName="Assets/Script/Car/CarSlip.cs" Line="13" Column="6" />
-      <File FileName="Assets/Script/Track/BoosCarTrack.cs" Line="14" Column="61" />
+      <File FileName="Assets/Script/Car/CarControl.cs" Line="267" Column="1" />
+      <File FileName="Assets/Script/Manager/ControlMaster.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/LoadDataParam.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Editor/LoadDataManagerCustomEditor.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Car/CarTurbo.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/LoadDataLang.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Car/CarTemplate.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Car/PlayerData.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Manager/UIManager.cs" Line="321" Column="98" />
+      <File FileName="Assets/Script/Misc/translateText.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Misc/translateTextU.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/UI/MainMenuDisplayKart.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/UI/KartSelection.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/juliocesarsoaresfalconecunha/Documents/College/Term4/Mobile/Project1 - Racing Game/Assets/Script/Track/BoosCarTrack.cs" line="14" column="1" />
+      <Breakpoint file="/Users/jcfalcone/Documents/Backup/Projects/Software/College/Term4/Mobile/Project1 - Racing Game/Assets/Script/Car/CarTemplate.cs" line="323" column="1" />
+      <Breakpoint conditionExpression="curText == null" file="/Users/jcfalcone/Documents/Backup/Projects/Software/College/Term4/Mobile/Project1 - Racing Game/Assets/Script/Misc/translateTextU.cs" line="20" column="1" />
+      <Breakpoint file="/Users/jcfalcone/Documents/Backup/Projects/Software/College/Term4/Mobile/Project1 - Racing Game/Assets/Script/Manager/UIManager.cs" line="197" column="1" />
+      <Breakpoint file="/Users/jcfalcone/Documents/Backup/Projects/Software/College/Term4/Mobile/Project1 - Racing Game/Assets/Script/UI/KartSelection.cs" line="154" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

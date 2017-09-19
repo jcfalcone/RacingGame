@@ -29,9 +29,27 @@ public class UIManagerMenu : MonoBehaviour
     [SerializeField]
     Text MUSSound;
 
-    bool startGame = false;
+    [Header("Character")]
+    [SerializeField]
+    KartSelection charDisplay;
 
-    AsyncOperation async;
+    [Header("Loading")]
+    [SerializeField]
+    CanvasGroup loadingGroup;
+
+    [SerializeField]
+    Image loadingImg;
+
+    [SerializeField]
+    translateTemplate[] textElements;
+
+    bool startGame = false;
+    bool startLoading = false;
+    bool hideLoading = true;
+
+    int levelToLoad = 0;
+
+    AsyncOperation async = null;
 
 	// Use this for initialization
 	void Awake () 
@@ -63,6 +81,50 @@ public class UIManagerMenu : MonoBehaviour
 
             }
         }
+
+        if (this.startLoading)
+        {
+            if (this.loadingGroup.alpha < 1)
+            {
+                this.loadingGroup.gameObject.SetActive(true);
+                this.loadingGroup.alpha += Time.deltaTime;
+            }
+
+        }
+        else
+        {
+            if (this.loadingGroup.alpha > 0)
+            {
+                this.loadingGroup.alpha -= Time.deltaTime;
+            }
+            else
+            {
+                this.loadingGroup.gameObject.SetActive(false);
+            }
+        }
+
+        if (this.async != null)
+        {
+            if (this.loadingGroup.alpha >= 1)
+            {
+                if (this.async.progress >= 0.9f)
+                {
+                    this.hideLoading = true;
+                }
+            }
+
+            if (this.hideLoading)
+            {
+                Color loadingColor = this.loadingImg.color;
+                loadingColor.a -= Time.deltaTime;
+                this.loadingImg.color = loadingColor;
+
+                if (loadingColor.a <= 0)
+                {
+                    this.async.allowSceneActivation = true;
+                }
+            }
+        }
 	}
 
     public void OnClickSetting()
@@ -81,13 +143,19 @@ public class UIManagerMenu : MonoBehaviour
         this.mainMenuAnimator.CrossFade("MainMenuInitial", 0f);
     }
 
-    public void OnClickMap(string mapToLoad)
-    {
-        StartCoroutine(startLoadLevel(mapToLoad));
-        StartCoroutine(startLevel(1)); // Just for testing
+    public void OnClickMap(int mapToLoad)
+	{
+
+        this.levelToLoad = mapToLoad;
+        this.camAnim.CrossFade("CameraSelectCar", 0f);
+        this.charDisplay.gameObject.SetActive(true);
+		/*AudioTest.instance.crossFadeLevelMusic (mapToLoad);
+        StartCoroutine(startLoadLevel(mapToLoad + 1));
+        this.loading(true);*/
+        //StartCoroutine(startLevel(1)); // Just for testing
     }
 
-    IEnumerator startLoadLevel(string mapToLoad)
+    IEnumerator startLoadLevel(int mapToLoad)
     {
         async = Application.LoadLevelAsync(mapToLoad);
         async.allowSceneActivation = false;
@@ -120,6 +188,42 @@ public class UIManagerMenu : MonoBehaviour
     public void updateMUSLabel(int MUSVol)
     {
         this.MUSSound.text = MUSVol.ToString();
+    }
+
+    public void loading(bool showLoading)
+    {
+        this.startLoading = showLoading;
+    }
+
+    public void OnSelectChar()
+    {
+        PlayerData.instance.currKart = this.charDisplay.selectKart;
+        AudioTest.instance.crossFadeLevelMusic (this.levelToLoad);
+        StartCoroutine(startLoadLevel(this.levelToLoad + 1));
+        this.loading(true);
+    }
+
+    public void OnReturnChar()
+    {
+        this.camAnim.CrossFade("CameraReturnSelection", 0f);
+        StartCoroutine(disableCharDisplay());
+    }
+
+    IEnumerator disableCharDisplay()
+    {
+        yield return new WaitForSeconds(0.3f);
+        this.charDisplay.gameObject.SetActive(false);
+
+    }
+
+    public void setLanguage(string newLanguage)
+    {
+        LoadDataManager.instance.updateLang(newLanguage.ToUpper());
+
+        for (int count = 0; count < this.textElements.Length; count++)
+        {
+            this.textElements[count].UpdateTxt();
+        }
     }
 
 }

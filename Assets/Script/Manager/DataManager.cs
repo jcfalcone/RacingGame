@@ -5,6 +5,15 @@ using UnityEngine.UI;
 
 public class DataManager : MonoBehaviour 
 {
+	public static DataManager instance
+	{
+		get { return _instance; }//can also use just get;
+		set { _instance = value; }//can also use just set;
+	}
+
+	//Creates a class variable to keep track of GameManger
+	static DataManager _instance = null;
+
     public static string MUSIC_VOL_KEY = "musicVol";
     public static string SFX_VOL_KEY   = "sfxVol";
     public static string HIGHSCORE_KEY = "HighScore";
@@ -18,7 +27,19 @@ public class DataManager : MonoBehaviour
 	// Use this for initialization
 	void Awake () 
     {
-        DontDestroyOnLoad(this);
+		DontDestroyOnLoad(this);
+
+		//check if GameManager instance already exists in Scene
+		if(instance)
+		{
+			//GameManager exists,delete copy
+			DestroyImmediate(gameObject);
+		}
+		else
+		{
+			//assign GameManager to variable "_instance"
+			instance = this;
+		}
 	}
 
     void Start()

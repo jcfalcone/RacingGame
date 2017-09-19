@@ -497,6 +497,10 @@ public class CarAI : CarTemplate
                         }
                     }
                 }
+                else if (this.currentItemControl.effect == itemTemplate.ItemEffect.Shield)
+                {
+                    this.useItem();
+                }
             }
         }
     }
